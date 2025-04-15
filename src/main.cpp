@@ -31,6 +31,8 @@ int main(void)
 	plr.Init();
 	game.game_plr = &plr;
 
+	InitPlanetTextures();
+
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
 	#else
@@ -57,7 +59,7 @@ void UpdateDrawFrame()
 	BeginDrawing();
 	BeginMode2D(game.camera);
 	
-	ClearBackground(RAYWHITE);
+	ClearBackground(BLACK);
 
 	game.Draw();
 	DrawPlanets();

@@ -5,6 +5,7 @@
 #include <vector>
 #include "../Entity/Entity.hpp"
 #include "../Player/Player.hpp"
+#include <iostream>
 
 class Player;
 
@@ -18,6 +19,7 @@ struct Planet
     int worth;
     int strength;
 };
+const float PLANET_RADIUS = 102.f;
 
 class Game
 {
@@ -27,6 +29,7 @@ public:
     Vector2 mouse_pos;
     std::vector<std::reference_wrapper<Entity>> entities;
     Camera2D camera;
+    int points;
 
     Vector4 spawn_barrier = {
         static_cast<float>(-WIDTH),

@@ -1,5 +1,7 @@
 #include "Game.hpp"
 
+#include "../SpawnPlanets.hpp"
+
 void Game::Init()
 {
     for (Entity& entity : entities)

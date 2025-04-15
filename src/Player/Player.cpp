@@ -16,6 +16,7 @@ void Player::Init()
     texture = LoadTexture("assets/player.png");
 
     laser_tex = LoadTexture("assets/laser.png");
+    
 }
 
 void Player::Update()
@@ -48,12 +49,18 @@ void Player::Draw()
     DrawTexturePro(texture,
         {0, 0, (float)texture.width, (float)texture.height},
         {position.x, position.y, (float)texture.width, (float)texture.height},
-        {(float)texture.width/2, (float)texture.height/2},
+        {(float)texture.width / 2, (float)texture.height / 2},
         rotation - 90.f,
     WHITE);
 
-    for (Planet& planet : game.planets)
-    {DrawRectangleLines(planet.position.x, planet.position.y, planet.texture.width, planet.texture.height, BLUE);}
+    for (Planet& planet : game.planets) {
+        std::cout << "Planet position line drawn: " << planet.position.x << ", " << planet.position.y << std::endl;
+        DrawCircleLinesV(
+            {planet.position.x, planet.position.y},
+            PLANET_RADIUS*2,
+            BLUE
+        );
+    }
 
     for (int i = 0; i < lasers.size(); i++)
 	{
@@ -70,14 +77,15 @@ void Player::Draw()
 
         DrawRectangleLines(laser.pos.x, laser.pos.y, laser_tex.width, laser_tex.height, RED);
 
-        for (Planet& planet : game.planets)
+        for (int p = 0; p < game.planets.size(); p++)
         {
-            if (CheckCollisionCircleRec(planet.position, planet.texture.width,
+            Planet& planet = game.planets[p];
+            if (CheckCollisionCircleRec(planet.position, PLANET_RADIUS,
                 {laser.pos.x, laser.pos.y, (float)laser_tex.width, (float)laser_tex.height}
             ))
             {
-                planet.texture.width -= 5;
-                planet.texture.height -= 5;
+                game.points++;
+                game.planets.erase(game.planets.begin() + p);
                 lasers.erase(lasers.begin() + i);
             }
         }
