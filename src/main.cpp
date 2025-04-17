@@ -55,11 +55,12 @@ void UpdateDrawFrame()
 {
 	game.Update();
 	SpawnPlanets();
-
-	BeginDrawing();
-	BeginMode2D(game.camera);
 	
+	BeginDrawing();
 	ClearBackground(BLACK);
+	
+	DrawText(("Planets: " + std::to_string(game.points)).c_str(), 20, 20, 20, WHITE);
+	BeginMode2D(game.camera);
 
 	game.Draw();
 	DrawPlanets();

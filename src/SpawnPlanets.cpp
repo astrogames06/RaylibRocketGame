@@ -34,8 +34,8 @@ void SpawnPlanets()
         } Vector4;
         */
         Vector2 planet_position = {
-            GetRandomValue(game.spawn_barrier.x, game.spawn_barrier.y)+PLANET_RADIUS,
-            GetRandomValue(game.spawn_barrier.z, game.spawn_barrier.w)+PLANET_RADIUS
+            GetRandomValue(game.game_plr->position.x + game.spawn_barrier.x, game.game_plr->position.x + game.spawn_barrier.y)+PLANET_RADIUS,
+            GetRandomValue(game.game_plr->position.y + game.spawn_barrier.z, game.game_plr->position.y + game.spawn_barrier.w)+PLANET_RADIUS
         };
         bool collision = true;
         while (collision)
@@ -47,8 +47,8 @@ void SpawnPlanets()
                 {
                     collision = true;
                     planet_position = {
-                        GetRandomValue(game.spawn_barrier.x, game.spawn_barrier.y)+PLANET_RADIUS,
-                        GetRandomValue(game.spawn_barrier.z, game.spawn_barrier.w)+PLANET_RADIUS
+                        GetRandomValue(game.game_plr->position.x + game.spawn_barrier.x, game.game_plr->position.x + game.spawn_barrier.y)+PLANET_RADIUS,
+                        GetRandomValue(game.game_plr->position.y + game.spawn_barrier.z, game.game_plr->position.y + game.spawn_barrier.w)+PLANET_RADIUS
                     };
                     break;
                 }
@@ -60,8 +60,8 @@ void SpawnPlanets()
             {
                 collision = true;
                 planet_position = {
-                    GetRandomValue(game.spawn_barrier.x, game.spawn_barrier.y)+PLANET_RADIUS,
-                    GetRandomValue(game.spawn_barrier.z, game.spawn_barrier.w)+PLANET_RADIUS
+                    GetRandomValue(game.game_plr->position.x + game.spawn_barrier.x, game.game_plr->position.x + game.spawn_barrier.y)+PLANET_RADIUS,
+                    GetRandomValue(game.game_plr->position.y + game.spawn_barrier.z, game.game_plr->position.y + game.spawn_barrier.w)+PLANET_RADIUS
                 };
             }
         }
@@ -91,7 +91,7 @@ void DrawPlanets()
             0.f,
         WHITE);
     }
-    DrawRectangleLines(game.game_plr->position.x, game.game_plr->position.y, 50,50, GREEN);
+    // DrawRectangleLines(game.game_plr->position.x, game.game_plr->position.y, 50,50, GREEN);
 }
 
 /*

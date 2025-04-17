@@ -30,11 +30,11 @@ void Game::Draw()
     {
         entity.Draw();
     }
-    DrawRectangleLines(
+    /* DrawRectangleLines(
         spawn_barrier.x, 
         spawn_barrier.z, 
         spawn_barrier.y - spawn_barrier.x, 
         spawn_barrier.w - spawn_barrier.z, 
         GREEN
-    );
+    ); */
 }

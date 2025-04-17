@@ -25,12 +25,21 @@ void Player::Update()
 	float dir_x = cosf(rotation*DEG2RAD);
 	float dir_y = sinf(rotation*DEG2RAD);
 
+    const float acceleration = 1000.f;
+    const float damping = 0.98f; 
+
 	if ((IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_W)) &&
 		!CheckCollisionPointRec(game.mouse_pos, {position.x-25, position.y-25, 50, 50}))
 	{
-		position.x -= dir_x * 500.f * GetFrameTime();
-		position.y -= dir_y * 500.f * GetFrameTime();
+        velocity.x -= dir_x * acceleration * GetFrameTime();
+        velocity.y -= dir_y * acceleration * GetFrameTime();
 	}
+
+    position.x += velocity.x * GetFrameTime();
+    position.y += velocity.y * GetFrameTime();
+
+    velocity.x *= damping;
+    velocity.y *= damping;
 
 	if (IsKeyPressed(KEY_E))
 	{
@@ -55,11 +64,11 @@ void Player::Draw()
 
     for (Planet& planet : game.planets) {
         std::cout << "Planet position line drawn: " << planet.position.x << ", " << planet.position.y << std::endl;
-        DrawCircleLinesV(
+        /*DrawCircleLinesV(
             {planet.position.x, planet.position.y},
             PLANET_RADIUS*2,
             BLUE
-        );
+        );*/
     }
 
     for (int i = 0; i < lasers.size(); i++)
@@ -75,7 +84,7 @@ void Player::Draw()
 			laser.rot-90.f,
 		WHITE);
 
-        DrawRectangleLines(laser.pos.x, laser.pos.y, laser_tex.width, laser_tex.height, RED);
+        // DrawRectangleLines(laser.pos.x, laser.pos.y, laser_tex.width, laser_tex.height, RED);
 
         for (int p = 0; p < game.planets.size(); p++)
         {
